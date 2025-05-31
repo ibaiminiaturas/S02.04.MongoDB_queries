@@ -4,7 +4,7 @@ db.restaurants.find()
 
 //2.- Escribe una consulta para mostrar el restaurante, nombre, barrio y cocina de todos los documentos de la colección del restaurante.
 
-db.getCollection('restaurants').find(
+db.restaurants.find(
   {},
   {
     "borough": 1,
@@ -16,7 +16,7 @@ db.getCollection('restaurants').find(
 
 //3.- Escriba una consulta para mostrar el restaurante, nombre, barrio y cocina, pero excluyendo el campo de todos los documentos de la colección del restaurante.
 
-db.getCollection('restaurants').find(
+db.restaurants.find(
   {},
   {
     "borough": 1,
@@ -29,7 +29,7 @@ db.getCollection('restaurants').find(
 
 //4.- Escriba una consulta para mostrar el restaurante, nombre, barrio y código postal, pero excluyendo el campo de identificación de todos los documentos de la colección del restaurante.
 
-db.getCollection('restaurants').find(
+db.restaurants.find(
   {},
   {
     "borough": 1,
@@ -140,7 +140,7 @@ db.restaurants.find({
 
 //18.- Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per aquells restaurants que pertanyen a Staten Island, Queens, Bronx o Brooklyn.
 
-db.getCollection('restaurants').find({
+db.restaurants.find({
   $or: [
     {"borough" : {$in :[
                       "Staten Island",
@@ -159,7 +159,7 @@ db.getCollection('restaurants').find({
 
 //19.- Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que NO pertanyen a Staten Island, Queens, Bronx o Brooklyn.
 
-db.getCollection('restaurants').find({
+db.restaurants.find({
     "borough" : {$nin :[
                       "Staten Island",
                       "Queens",
@@ -177,7 +177,7 @@ db.getCollection('restaurants').find({
 
 //20.- Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que aconsegueixin una nota menor que 10.
 
-db.getCollection('restaurants').find({
+db.restaurants.find({
     "grades.score" : {$lt : 10}
   },
   {
@@ -191,7 +191,7 @@ db.getCollection('restaurants').find({
 
 //21.- Escriu una consulta per trobar el restaurant_id, name, borough i cuisine per a aquells restaurants que preparen marisc ('seafood') excepte si són 'American ', 'Chinese' o el name del restaurant comença amb lletres 'Wil'.
 
-db.getCollection('restaurants').find({
+db.restaurants.find({
     "cuisine" : "Seafood",
      "name": {$not:{ $regex: "^Wil"}},
   },
@@ -206,7 +206,7 @@ db.getCollection('restaurants').find({
 
 //22.- Escriu una consulta per trobar el restaurant_id, name i grades per a aquells restaurants que aconsegueixin un grade de "A" i un score d'11 amb un ISODate "2014-08-11T00:00:00Z".
 
-db.getCollection('restaurants').find(
+db.restaurants.find(
   {
     "grades": {
       $elemMatch: {
@@ -227,7 +227,7 @@ db.getCollection('restaurants').find(
 //23.- Escriu una consulta per trobar el restaurant_id, name i grades 
 // per a aquells restaurants on el 2n element de l'array de graus conté un grade de "A" i un score 9 amb un ISODate "2014-08-11T00:00:00Z".
 
-db.getCollection('restaurants').find(
+db.restaurants.find(
   {
     "grades.1.grade": "A",
     "grades.1.score": 9,
@@ -245,7 +245,7 @@ db.getCollection('restaurants').find(
 
 //24-. Escriu una consulta per trobar el restaurant_id, name, adreça i ubicació geogràfica per a aquells restaurants on el segon element de l'array coord conté un valor entre 42 i 52.
 
-db.getCollection('restaurants').find(
+db.restaurants.find(
   {
     "address.coord.1":{ $gte: 42, $lte: 52 },      
   },
