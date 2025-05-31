@@ -69,7 +69,7 @@ db.restaurants.find({"address.coord.0" : { $lt : -95.754168}})
 
 db.restaurants.find({
                $and: [
-                     {"cuisine" : { $ne : "American" }},
+                     {"cuisine" : { $ne : "American " }},
                      {"grades.score" : { $gt : 70 }},
                      {"address.coord.1" : { $lt : 65.754168}}
                     ]
@@ -79,7 +79,7 @@ db.restaurants.find({
 //12.- Escribe una consulta para encontrar restaurantes que no preparen comida americana y tengan una puntuación de más de 70, 
 // y que se encuentran en menos de 65,754168. Nota: Por favor, haga esto sin usar el operador 
 
-db.restaurants.find({"cuisine" : { $ne : "American" },
+db.restaurants.find({"cuisine" : { $ne : "American " },
                      "grades.score" : { $gt : 70 },
                      "address.coord.1" : { $lt : 65.754168}})
 
@@ -87,7 +87,7 @@ db.restaurants.find({"cuisine" : { $ne : "American" },
 
 db.restaurants.find({
                 $and: [
-                    {"cuisine" : { $ne : "American" }},
+                    {"cuisine" : { $ne : "American " }},
                     {"grades.grade" : "A"},
                     {"borough" : { $ne : "Brooklyn" }}  
                 ]
@@ -133,7 +133,7 @@ db.restaurants.find(
 db.restaurants.find({
     $and: [
         {"borough": "Bronx"},
-        {"cuisine": { $in: ["American", "Chinese"] }}
+        {"cuisine": { $in: ["American ", "Chinese"] }}
     ]
 })  
 
@@ -260,6 +260,74 @@ db.getCollection('restaurants').find(
 
 //25.- Escriu una consulta per organitzar els restaurants per nom en ordre ascendent.
 
-db.getCollection.find().sort({"name": 1})
+db.restaurants.find().sort({"name": 1})
+
+//26.- Escriu una consulta per organitzar els restaurants per nom en ordre descendent.
+
+db.restaurants.find().sort({"name": -1})
+
+//27.- Escriu una consulta per organitzar els restaurants pel nom de la cuisine en ordre ascendent i pel barri en ordre descendent.
+
+db.restaurants.find().sort([
+        {"cuisine": 1},
+        {"burough" : -1}])
+
+//28.- Escriu una consulta per saber si les direccions contenen el carrer.
+
+db.restaurants.find({
+        "address.street" : { $exists : true }
+})
+
+
+//29.- Escriu una consulta que seleccioni tots els documents en la col·lecció de restaurants on els valors del camp coord és de tipus Double.
+
+db.restaurants.find({
+        "address.coord" : { $elemMatch: { $type : "double" }}
+})
+
+//30.- Escriu una consulta que seleccioni el restaurant_id, name i grade per a aquells restaurants que retornen 0 com a residu després de dividir algun dels seus score per 7.
+
+db.restaurants.find(
+  {
+    "grades.score": { $mod : [7 , 0] }  
+  },
+  {
+    "grades": 1,
+    "name": 1,
+    "restaurant_id": 1,
+    "_id": 0
+  }
+);
+
+
+//31.- Escriu una consulta per trobar el name de restaurant, borough, longitud, latitud i cuisine per a aquells restaurants que contenen 'mon' en algun lloc del seu name.
+
+db.restaurants.find(
+  {
+    "name" : { $regex : "mon" }  
+  },
+  {
+    "borough": 1,
+    "name": 1,
+    "cuisine": 1,
+    "address.coord": 1,
+    "_id": 0
+  }
+);
+
+//32.- Escriu una consulta per trobar el name de restaurant, borough, longitud, latitud i cuisine per a aquells restaurants que contenen 'Mad' com a primeres tres lletres del seu name.
+
+db.restaurants.find(
+  {
+    "name" : { $regex : "^Mad" }  
+  },
+  {
+    "borough": 1,
+    "name": 1,
+    "cuisine": 1,
+    "address.coord": 1,
+    "_id": 0
+  }
+);
 
 
