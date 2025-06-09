@@ -59,7 +59,7 @@ db.restaurants.find({ "grades.score": { $gte: 90 } })
 
 //9.- Escriba una consulta para encontrar restaurantes que tengan una puntuación superior a 80 pero menos de 100.
 
-db.restaurants.find({ "grades.score": { $gt: 80, $lt: 100 } })
+db.restaurants.find({ "grades": { $elemMatch: { "score": { $gt: 80, $lt: 100 } } }})
 
 //10.- Escriba una consulta para encontrar los restaurantes que se encuentran en una longitud de menos de -95,754168.
 
